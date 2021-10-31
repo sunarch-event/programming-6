@@ -20,9 +20,9 @@ public class PerformanceApplication {
     @Qualifier("perfomanceExecutor")
     public TaskExecutor perfomanceExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(4);
-        executor.setMaxPoolSize(4);
-        executor.setQueueCapacity(40);
+        executor.setCorePoolSize(1);
+        executor.setMaxPoolSize(1);
+        executor.setQueueCapacity(0);
         return executor;
     }
 }
