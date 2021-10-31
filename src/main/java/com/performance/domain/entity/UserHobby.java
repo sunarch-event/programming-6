@@ -1,10 +1,8 @@
 package com.performance.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class UserHobby {
 
     private Long id;

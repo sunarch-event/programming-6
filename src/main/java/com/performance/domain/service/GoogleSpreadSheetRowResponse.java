@@ -2,11 +2,9 @@ package com.performance.domain.service;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class GoogleSpreadSheetRowResponse {
 
     private String range;

@@ -1,10 +1,8 @@
 package com.performance.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class UserInfo {
 
     private Long id;

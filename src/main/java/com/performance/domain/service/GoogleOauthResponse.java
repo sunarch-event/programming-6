@@ -2,11 +2,9 @@ package com.performance.domain.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class GoogleOauthResponse {
 
     @JsonProperty("access_token")
