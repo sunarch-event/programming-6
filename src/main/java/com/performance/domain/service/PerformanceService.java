@@ -11,10 +11,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
 
 import com.performance.domain.dao.UserDao;
 import com.performance.domain.entity.UserHobby;
@@ -24,7 +26,10 @@ import com.performance.domain.entity.UserMaster;
 @Service
 public class PerformanceService {
 
-    final static Logger log = LogManager.getLogger(PerformanceService.class);
+    LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+    Logger log = lc.getLogger(PerformanceService.class);
+
+    //final static Logger log = LogManager.getLogger(PerformanceService.class);
 
     private final String MEASURE_FLAG_ON  = "1";
 
