@@ -22,8 +22,6 @@ public class PerformanceController {
     LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
     Logger log = lc.getLogger(PerformanceService.class);
 
-    //final static Logger log = LogManager.getLogger(PerformanceController.class);
-
     PerformanceService service;
     GoogleApiService googleService;
 

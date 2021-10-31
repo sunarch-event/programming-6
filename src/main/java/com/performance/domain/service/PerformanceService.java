@@ -29,8 +29,6 @@ public class PerformanceService {
     LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
     Logger log = lc.getLogger(PerformanceService.class);
 
-    //final static Logger log = LogManager.getLogger(PerformanceService.class);
-
     private final String MEASURE_FLAG_ON  = "1";
 
     private GoogleApiService googleService;
