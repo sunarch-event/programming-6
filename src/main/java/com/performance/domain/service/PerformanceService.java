@@ -174,7 +174,7 @@ public class PerformanceService {
         
         List<UserMaster> userMasterList = new ArrayList<UserMaster>();
         
-        for(int i = 0,int iLen = userInfoList.size(); i < iLen; i++) {
+        for(int i = 0,iLen = userInfoList.size(); i < iLen; i++) {
             UserMaster userMaster = new UserMaster();
             userMaster.setId(userInfoList.get(i).getId());
             userMaster.setLastName(userInfoList.get(i).getLastName());
@@ -182,7 +182,7 @@ public class PerformanceService {
             userMaster.setPrefectures(userInfoList.get(i).getPrefectures());
             userMaster.setCity(userInfoList.get(i).getCity());
             userMaster.setBloodType(userInfoList.get(i).getBloodType());
-            for(int j = 0,int jLen = userHobbyList.size(); j < jLen; j++) {
+            for(int j = 0,jLen = userHobbyList.size(); j < jLen; j++) {
                 if(userMaster.getId().equals(userHobbyList.get(j).getId())) {
                     userMaster.setHobby1(userHobbyList.get(j).getHobby1());
                     userMaster.setHobby2(userHobbyList.get(j).getHobby2());
