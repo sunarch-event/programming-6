@@ -1,8 +1,10 @@
 package com.performance.domain.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserHobby {
 
     private Long id;
@@ -12,9 +14,10 @@ public class UserHobby {
     private String hobby4;
     private String hobby5;
 
-    @Override
     public String toString() {
-        
-        return hobby1 + hobby2 + hobby3 + hobby4 + hobby5;
+        StringBuilder sb = new StringBuilder();
+        return sb.append(hobby1).append(hobby2).append(hobby3)
+                 .append(hobby4).append(hobby5)
+                 .toString();
     }
 }

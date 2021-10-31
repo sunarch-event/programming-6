@@ -1,8 +1,10 @@
 package com.performance.domain.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserInfo {
 
     private Long id;
@@ -12,9 +14,10 @@ public class UserInfo {
     private String city;
     private String bloodType;
 
-    @Override
     public String toString() {
-        
-        return lastName + firstName + prefectures + city + bloodType;
+        StringBuilder sb = new StringBuilder();
+        return sb.append(lastName).append(firstName).append(prefectures)
+                 .append(city).append(bloodType)
+                 .toString();
     }
 }
