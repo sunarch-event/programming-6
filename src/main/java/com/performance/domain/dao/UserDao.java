@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.performance.Utils.Def;
 import com.performance.domain.entity.UserHobby;
 import com.performance.domain.entity.UserInfo;
 
