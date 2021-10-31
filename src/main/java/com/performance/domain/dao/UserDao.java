@@ -2,7 +2,6 @@ package com.performance.domain.dao;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,7 +15,6 @@ public class UserDao {
 
     private JdbcTemplate jdbcTemplate;
     
-    @Autowired
     public UserDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -26,11 +24,11 @@ public class UserDao {
         String sql = new StringBuilder()
            .append("INSERT INTO user_info (last_name, first_name, prefectures, city, blood_type)")
            .append(" VALUES (")
-           .append("'" + entity.getLastName() + "', ")
-           .append("'" + entity.getFirstName() + "', ")
-           .append("'" + entity.getPrefectures() + "', ")
-           .append("'" + entity.getCity() + "', ")
-           .append("'" + entity.getBloodType() + "')")
+           .append(Def.SQL_FORWARD_CLOSE).append(entity.getLastName()).append(Def.SQL_CLOSED_BACKWARDS)
+           .append(Def.SQL_FORWARD_CLOSE).append(entity.getFirstName()).append(Def.SQL_CLOSED_BACKWARDS)
+           .append(Def.SQL_FORWARD_CLOSE).append(entity.getPrefectures()).append(Def.SQL_CLOSED_BACKWARDS)
+           .append(Def.SQL_FORWARD_CLOSE).append(entity.getCity()).append(Def.SQL_CLOSED_BACKWARDS)
+           .append(Def.SQL_FORWARD_CLOSE).append(entity.getBloodType()).append(Def.SQL_CLOSED_PARENTHESES)
            .toString();
         jdbcTemplate.execute(sql);
     }
@@ -40,12 +38,12 @@ public class UserDao {
         String sql = new StringBuilder()
            .append("INSERT INTO user_hobby (id, hobby1, hobby2, hobby3, hobby4, hobby5)")
            .append(" VALUES (")
-           .append("'" + entity.getId() + "', ")
-           .append("'" + entity.getHobby1() + "', ")
-           .append("'" + entity.getHobby2() + "', ")
-           .append("'" + entity.getHobby3() + "', ")
-           .append("'" + entity.getHobby4() + "', ")
-           .append("'" + entity.getHobby5() + "')")
+           .append(Def.SQL_FORWARD_CLOSE).append(entity.getId()).append(Def.SQL_CLOSED_BACKWARDS)
+           .append(Def.SQL_FORWARD_CLOSE).append(entity.getHobby1()).append(Def.SQL_CLOSED_BACKWARDS)
+           .append(Def.SQL_FORWARD_CLOSE).append(entity.getHobby2()).append(Def.SQL_CLOSED_BACKWARDS)
+           .append(Def.SQL_FORWARD_CLOSE).append(entity.getHobby3()).append(Def.SQL_CLOSED_BACKWARDS)
+           .append(Def.SQL_FORWARD_CLOSE).append(entity.getHobby4()).append(Def.SQL_CLOSED_BACKWARDS)
+           .append(Def.SQL_FORWARD_CLOSE).append(entity.getHobby5()).append(Def.SQL_CLOSED_PARENTHESES)
            .toString();
         jdbcTemplate.execute(sql);
     }
@@ -54,7 +52,8 @@ public class UserDao {
         String sql = new StringBuilder()
            .append("SELECT id ")
            .append("FROM user_info ")
-           .append("WHERE last_name || first_name = " + "'" + entity.getLastName() + entity.getFirstName() + "'")
+           .append("WHERE last_name || first_name = ").append(Def.SQL_FORWARD_CLOSE)
+           .append(entity.getLastName()).append(entity.getFirstName()).append(Def.SQL_FORWARD_CLOSE)
            .append(" ORDER BY id desc")
            .append(" LIMIT 1")
            .toString();
@@ -65,7 +64,7 @@ public class UserDao {
         String sql = new StringBuilder()
            .append("SELECT id, last_name, first_name, prefectures, city, blood_type ")
            .append("FROM user_info ")
-           .append("WHERE last_name || first_name <> " + "'試験太郎'")
+           .append("WHERE last_name || first_name <> ").append(Def.SQL_FULL_NAME)
            .append(" ORDER BY id")
            .toString();
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
@@ -75,7 +74,7 @@ public class UserDao {
         String sql = new StringBuilder()
            .append("SELECT id, hobby1, hobby2, hobby3, hobby4, hobby5 ")
            .append("FROM user_hobby ")
-           .append("WHERE id  <> " + targetUserHobby.getId())
+           .append("WHERE id  <> ").append(targetUserHobby.getId())
            .append(" ORDER BY id")
            .toString();
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<UserHobby>(UserHobby.class));
@@ -85,8 +84,8 @@ public class UserDao {
         String sql = new StringBuilder()
            .append("SELECT id, last_name, first_name, prefectures, city, blood_type ")
            .append("FROM user_info ")
-           .append("WHERE last_name = " + "'試験'")
-           .append("AND first_name = " + "'太郎'")
+           .append("WHERE last_name = ").append(Def.SQL_LAST_NAME)
+           .append("AND first_name = ").append(Def.SQL_FIRST_NAME)
            .toString();
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
     }
@@ -95,7 +94,7 @@ public class UserDao {
         String sql = new StringBuilder()
            .append("SELECT id, hobby1, hobby2, hobby3, hobby4, hobby5 ")
            .append("FROM user_hobby ")
-           .append("WHERE id = " + userInfo.getId())
+           .append("WHERE id = ").append(userInfo.getId())
            .toString();
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<UserHobby>(UserHobby.class));
     }
