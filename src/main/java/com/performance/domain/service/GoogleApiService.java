@@ -109,7 +109,9 @@ public class GoogleApiService {
         List<Long[]> updateValues = new ArrayList<Long[]>();
         updateValues.add(updateValue);
         valueMap.put("values", updateValues);
-        String postUrl = API_URL + SHEET_ID + "/values/" + targetColumn.getColumnId() + targetRowCount +":append?valueInputOption=USER_ENTERED";
+        String postUrl =　new Stringbuilder().append(API_URL).append(SHEET_ID)
+        .append("/values/").append(targetColumn.getColumnId()).append(targetRowCount)
+        .append(":append?valueInputOption=USER_ENTERED").toString();
         RequestEntity<Map<String, List<Long[]>>> request = RequestEntity.post(new URI(postUrl))
                 .header("Authorization", googleOauth.getTokenType() + " " + googleOauth.getAccessToken())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -119,7 +121,9 @@ public class GoogleApiService {
 
     private String getTargetRowCount(GoogleOauthResponse googleOauth, Column targetColumn) throws URISyntaxException, JsonMappingException, JsonProcessingException {
 
-        String getUrl = API_URL + SHEET_ID + "/values/シート1!" + targetColumn.getColumnId() + "3:" + targetColumn.getColumnId() +"2000000";
+        String getUrl = new Stringbuilder().append(API_URL).append(SHEET_ID)
+           .append("/values/シート1!").append(targetColumn.getColumnId()).append("3:")
+           .append(targetColumn.getColumnId()).append("2000000").toString();
         GoogleSpreadSheetRowResponse response = null;
         RequestEntity<Void> request = RequestEntity.get(new URI(getUrl)).header("Authorization", googleOauth.getTokenType() + " " + googleOauth.getAccessToken()).build();
         ResponseEntity<GoogleSpreadSheetRowResponse> responseEntity = restTemplate.exchange(request, GoogleSpreadSheetRowResponse.class);
@@ -137,7 +141,7 @@ public class GoogleApiService {
 
     private Column getTargetColumun(GoogleOauthResponse googleOauth) throws URISyntaxException, JsonMappingException, JsonProcessingException {
 
-        String getUrl = API_URL + SHEET_ID + "/values/シート1!B1:I1";
+        String getUrl = new Stringbuilder().append(API_URL).append(SHEET_ID).append("/values/シート1!B1:I1").toString();
         GoogleSpreadSheetRowResponse response = null;
         RequestEntity<Void> request = RequestEntity.get(new URI(getUrl)).header("Authorization", googleOauth.getTokenType() + " " + googleOauth.getAccessToken()).build();
         ResponseEntity<GoogleSpreadSheetRowResponse> responseEntity = restTemplate.exchange(request, GoogleSpreadSheetRowResponse.class);
