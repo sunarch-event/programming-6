@@ -2,6 +2,7 @@ package com.performance.apps.web;
 
 import java.util.UUID;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.task.TaskRejectedException;
 import org.springframework.stereotype.Controller;
@@ -10,17 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.LoggerContext;
-
 import com.performance.domain.service.GoogleApiService;
 import com.performance.domain.service.PerformanceService;
 
 @Controller
 public class PerformanceController {
 
-    LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
-    Logger log = lc.getLogger(PerformanceService.class);
+    final static Logger log = LoggerFactory.getLogger(PerformanceController.class);
 
     PerformanceService service;
     GoogleApiService googleService;
