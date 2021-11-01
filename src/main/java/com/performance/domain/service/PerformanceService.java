@@ -27,7 +27,6 @@ public class PerformanceService {
     final static Logger log = LoggerFactory.getLogger(PerformanceService.class);
 
     private final String MEASURE_FLAG_ON  = "1";
-    private static String CR = "\r\n";
 
     private GoogleApiService googleService;
 
@@ -104,7 +103,6 @@ public class PerformanceService {
 
         try {
             int i = 0;
-            StringBuilder sb = new StringBuilder();
             for(String line : csvFile) {
                 //カンマで分割した内容を配列に格納する
                 String[] data = line.split(",", -1);
@@ -113,19 +111,16 @@ public class PerformanceService {
                 log.info("-------------------------------");
                 //データ件数を表示
                 //配列の中身を順位表示する。列数(=列名を格納した配列の要素数)分繰り返す
-                String text = sb.append("ユーザー姓:").append(data[1]).append(CR)
-                                .append("出身都道府県:").append(data[2]).append(CR)
-                                .append("ユーザー名:").append(data[0]).append(CR)
-                                .append("出身市区町村:").append(data[3]).append(CR)
-                                .append("血液型:").append(data[4]).append(CR)
-                                .append("趣味1:").append(data[5]).append(CR)
-                                .append("趣味2:").append(data[6]).append(CR)
-                                .append("趣味3:").append(data[7]).append(CR)
-                                .append("趣味4:").append(data[8]).append(CR)
-                                .append("趣味5:").append(data[9]).append(CR)
-                                .toString();
-                log.debug(text);
-                sb.setLength(0);
+                log.debug("ユーザー姓:" + data[1]);
+                log.debug("出身都道府県:" + data[2]);
+                log.debug("ユーザー名:" + data[0]);
+                log.debug("出身市区町村:" + data[3]);
+                log.debug("血液型:" + data[4]);
+                log.debug("趣味1:" + data[5]);
+                log.debug("趣味2:" + data[6]);
+                log.debug("趣味3:" + data[7]);
+                log.debug("趣味4:" + data[8]);
+                log.debug("趣味5:" + data[9]);
                 UserInfo userInfo = new UserInfo();
                 UserHobby userHobby = new UserHobby();
 
