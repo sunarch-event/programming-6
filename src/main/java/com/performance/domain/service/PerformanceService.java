@@ -125,6 +125,7 @@ public class PerformanceService {
                                 .append("趣味5:").append(data[9]).append(CR)
                                 .toString();
                 log.debug(text);
+                sb.setLength(0);
                 UserInfo userInfo = new UserInfo();
                 UserHobby userHobby = new UserHobby();
 
