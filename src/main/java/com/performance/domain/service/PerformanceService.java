@@ -75,8 +75,6 @@ public class PerformanceService {
         resultMap.clear();
         resultMap.put(uuid, null);
 
-        
-
         Long start = System.currentTimeMillis();
 
         List<UserMaster> matchingUserList = uploadExecute();
