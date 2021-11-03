@@ -20,4 +20,13 @@ public class UserInfo {
                  .append(city).append(bloodType)
                  .toString();
     }
+
+    public void clear() {
+        this.id = 0;
+        this.lastName = "";
+        this.firstName = "";
+        this.prefectures = "";
+        this.city = "";
+        this.bloodType = "";
+    }
 }

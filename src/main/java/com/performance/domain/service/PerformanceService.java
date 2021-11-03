@@ -55,7 +55,11 @@ public class PerformanceService {
     private UserDao userDao;
 
     // CSV取得用リスト
-    List<String> csvFile = new ArrayList<String>();
+    private List<String> csvFile = new ArrayList<String>();
+    //エンティティ
+    private UserInfo userInfo = new UserInfo();
+    private UserHobby userHobby = new UserHobby();
+    private UserMaster userMaster = new UserMaster();
     
     private Map<String, Long> resultMap = new HashMap<String, Long>();
     private Map<String, Boolean> assertionResultMap = new HashMap<String, Boolean>();
@@ -145,9 +149,7 @@ public class PerformanceService {
                 log.debug(HOBBY_3 + data[7]);
                 log.debug(HOBBY_4 + data[8]);
                 log.debug(HOBBY_5 + data[9]);
-                UserInfo userInfo = new UserInfo();
-                UserHobby userHobby = new UserHobby();
-
+                
                 userInfo.setLastName(data[0]);
                 userInfo.setFirstName(data[1]);
                 userInfo.setPrefectures(data[2]);
@@ -169,6 +171,9 @@ public class PerformanceService {
                     userHobby.setId(id);
                     userDao.insertUserHobby(userHobby);
                 }
+                // エンティティのクリア
+                userInfo.clear();
+                userHobby.clear();
             }
             //CSV取得用リストのクリア
             csvFile.clear();
@@ -200,7 +205,6 @@ public class PerformanceService {
         List<UserMaster> userMasterList = new ArrayList<UserMaster>();
         
         for(int i = 0,iLen = userInfoList.size(); i < iLen; i++) {
-            UserMaster userMaster = new UserMaster();
             userMaster.setId(userInfoList.get(i).getId());
             userMaster.setLastName(userInfoList.get(i).getLastName());
             userMaster.setFirstName(userInfoList.get(i).getFirstName());
@@ -218,6 +222,8 @@ public class PerformanceService {
                 }
             }
             userMasterList.add(userMaster);
+            // エンティティのクリア
+            userMaster.clear();
         }
         
         List<UserMaster> bloodMatchingUserList = new ArrayList<UserMaster>();
@@ -308,7 +314,6 @@ public class PerformanceService {
         }
         
         // CSVを取得・CSVファイルをDBに登録する
-        //List<String> csvFile = new ArrayList<String>();
         try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(CSV_ASSERTIONDATA), StandardCharsets.UTF_8));){
             //読み込み行
             String readLine;
@@ -321,7 +326,6 @@ public class PerformanceService {
         }
         for(String line : csvFile) {
             boolean exsits = false;
-            UserMaster userMaster = new UserMaster();
             String[] data = line.split(COMMA, -1);
 
             userMaster.setLastName(data[0]);
@@ -343,6 +347,8 @@ public class PerformanceService {
             if(!exsits) {
                 assertionResult = false;
             }
+            // エンティティのクリア
+            userMaster.clear();
         }
         //CSV取得用リストのクリア
         csvFile.clear();

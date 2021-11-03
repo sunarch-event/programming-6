@@ -20,4 +20,13 @@ public class UserHobby {
                  .append(hobby4).append(hobby5)
                  .toString();
     }
+
+    public void clear() {
+        this.id = 0;
+        this.hobby1 = "";
+        this.hobby2 = "";
+        this.hobby3 = "";
+        this.hobby4 = "";
+        this.hobby5 = "";
+    }
 }
