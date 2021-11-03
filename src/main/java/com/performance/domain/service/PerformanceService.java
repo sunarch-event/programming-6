@@ -171,9 +171,6 @@ public class PerformanceService {
                     userHobby.setId(id);
                     userDao.insertUserHobby(userHobby);
                 }
-                // エンティティのクリア
-                userInfo.clear();
-                userHobby.clear();
             }
             //CSV取得用リストのクリア
             csvFile.clear();
@@ -222,8 +219,6 @@ public class PerformanceService {
                 }
             }
             userMasterList.add(userMaster);
-            // エンティティのクリア
-            userMaster.clear();
         }
         
         List<UserMaster> bloodMatchingUserList = new ArrayList<UserMaster>();
@@ -347,8 +342,6 @@ public class PerformanceService {
             if(!exsits) {
                 assertionResult = false;
             }
-            // エンティティのクリア
-            userMaster.clear();
         }
         //CSV取得用リストのクリア
         csvFile.clear();
