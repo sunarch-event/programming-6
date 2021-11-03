@@ -29,7 +29,7 @@ public class UserMaster {
     }
 
     public void clear() {
-        this.id = 0;
+        this.id = 0L;
         this.lastName = "";
         this.firstName = "";
         this.prefectures = "";

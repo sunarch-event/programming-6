@@ -22,7 +22,7 @@ public class UserHobby {
     }
 
     public void clear() {
-        this.id = 0;
+        this.id = 0L;
         this.hobby1 = "";
         this.hobby2 = "";
         this.hobby3 = "";
