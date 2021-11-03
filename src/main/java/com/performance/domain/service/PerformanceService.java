@@ -30,7 +30,25 @@ public class PerformanceService {
     
     private final String SPREADSHEET_EROOR = "スプレッドシートの更新でエラーが発生しました。";
     private final String LOG_BOUNDARY = "-------------------------------";
+    private final String DATA_READ = "データ読み込み";
+    private final String ITEM = "件目";
+    private final String CSV_READ_ERROR = "csv read error";
+    private final String COMMA = ",";
+    private final String LAST_NAME = "ユーザー姓:";
+    private final String PREFECTURES = "出身都道府県:";
+    private final String FIRST_NAME = "ユーザー名:";
+    private final String CITY = "出身市区町村:";
+    private final String BLOODTYPE = "血液型:";
+    private final String HOBBY_1 = "趣味1:";
+    private final String HOBBY_2 = "趣味2:";
+    private final String HOBBY_3 = "趣味3:";
+    private final String HOBBY_4 = "趣味4:";
+    private final String HOBBY_5 = "趣味5:";
+    private final String TARGET_ITEMS = ".新潟県,上越市.";
+    private final String DATA_WRITING = "データ書き込み";
 
+    private final String CSV_USERINFO = "data/userInfo.csv";
+    private final String CSV_ASSERTIONDATA = "data/assertionData.csv";
 
     private GoogleApiService googleService;
 
@@ -82,7 +100,7 @@ public class PerformanceService {
         
         // CSVを取得・CSVファイルをDBに登録する
         List<String> csvFile = new ArrayList<String>();
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("data/userInfo.csv"), StandardCharsets.UTF_8));){
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(CSV_USERINFO), StandardCharsets.UTF_8));){
 
             //読み込み行
             String readLine;
@@ -97,34 +115,34 @@ public class PerformanceService {
                 log.info(LOG_BOUNDARY);
 
                 //データ件数を表示
-                log.info("データ読み込み" + i + "件目");
+                log.info(DATA_READ + i + ITEM);
                 
                 csvFile.add(readLine);
             }
         } catch (Exception e) {
-            log.info("csv read error", e);
+            log.info(CSV_READ_ERROR, e);
         }
 
         try {
             int i = 0;
             for(String line : csvFile) {
                 //カンマで分割した内容を配列に格納する
-                String[] data = line.split(",", -1);
+                String[] data = line.split(COMMA, -1);
                 
                 //データ内容をコンソールに表示する
-                log.info("-------------------------------");
+                log.info(LOG_BOUNDARY);
                 //データ件数を表示
                 //配列の中身を順位表示する。列数(=列名を格納した配列の要素数)分繰り返す
-                log.debug("ユーザー姓:" + data[1]);
-                log.debug("出身都道府県:" + data[2]);
-                log.debug("ユーザー名:" + data[0]);
-                log.debug("出身市区町村:" + data[3]);
-                log.debug("血液型:" + data[4]);
-                log.debug("趣味1:" + data[5]);
-                log.debug("趣味2:" + data[6]);
-                log.debug("趣味3:" + data[7]);
-                log.debug("趣味4:" + data[8]);
-                log.debug("趣味5:" + data[9]);
+                log.debug(LAST_NAME + data[1]);
+                log.debug(PREFECTURES + data[2]);
+                log.debug(FIRST_NAME + data[0]);
+                log.debug(CITY + data[3]);
+                log.debug(BLOODTYPE + data[4]);
+                log.debug(HOBBY_1 + data[5]);
+                log.debug(HOBBY_2 + data[6]);
+                log.debug(HOBBY_3 + data[7]);
+                log.debug(HOBBY_4 + data[8]);
+                log.debug(HOBBY_5 + data[9]);
                 UserInfo userInfo = new UserInfo();
                 UserHobby userHobby = new UserHobby();
 
@@ -139,11 +157,11 @@ public class PerformanceService {
                 userHobby.setHobby4(data[8]);
                 userHobby.setHobby5(data[9]);
                 // 特定の件のみインサートするようにする
-                Matcher matcher = Pattern.compile(".新潟県,上越市.").matcher(line);
+                Matcher matcher = Pattern.compile(TARGET_ITEMS).matcher(line);
                 if(matcher.find()) {
                     // 行数のインクリメント
                     i++;
-                    log.info("データ書き込み" + i + "件目");
+                    log.info(DATA_WRITING + i + ITEM);
                     userDao.insertUserInfo(userInfo);
                     Long id = userDao.selectId(userInfo);
                     userHobby.setId(id);
@@ -152,7 +170,7 @@ public class PerformanceService {
             }
 
         } catch (Exception e) {
-            log.info("csv read error", e);
+            log.info(CSV_READ_ERROR, e);
         }
         // 対象情報取得
         UserInfo targetUserInfo = userDao.getTargetUserInfo();
@@ -291,7 +309,7 @@ public class PerformanceService {
         
         // CSVを取得・CSVファイルをDBに登録する
         List<String> csvFile = new ArrayList<String>();
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("data/assertionData.csv"), StandardCharsets.UTF_8));){
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(CSV_ASSERTIONDATA), StandardCharsets.UTF_8));){
             //読み込み行
             String readLine;
             //1行ずつ読み込みを行う
@@ -299,12 +317,12 @@ public class PerformanceService {
                 csvFile.add(readLine);
             }
         } catch (Exception e) {
-            log.info("csv read error", e);
+            log.info(CSV_READ_ERROR, e);
         }
         for(String line : csvFile) {
             boolean exsits = false;
             UserMaster userMaster = new UserMaster();
-            String[] data = line.split(",", -1);
+            String[] data = line.split(COMMA, -1);
 
             userMaster.setLastName(data[0]);
             userMaster.setFirstName(data[1]);
