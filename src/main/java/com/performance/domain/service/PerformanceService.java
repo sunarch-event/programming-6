@@ -27,6 +27,10 @@ public class PerformanceService {
     final static Logger log = LoggerFactory.getLogger(PerformanceService.class);
 
     private final String MEASURE_FLAG_ON  = "1";
+    
+    private final String SPREADSHEET_EROOR = "スプレッドシートの更新でエラーが発生しました。";
+    private final String LOG_BOUNDARY = "-------------------------------";
+
 
     private GoogleApiService googleService;
 
@@ -65,7 +69,7 @@ public class PerformanceService {
             try {
                 googleService.execute(executeTime);
             } catch (Exception e) {
-                log.error("スプレッドシートの更新でエラーが発生しました。", e);
+                log.error(SPREADSHEET_EROOR, e);
             }
         }
         return;
@@ -90,7 +94,7 @@ public class PerformanceService {
             while ((readLine = br.readLine()) != null) {
                 i++;
                 //データ内容をコンソールに表示する
-                log.info("-------------------------------");
+                log.info(LOG_BOUNDARY);
 
                 //データ件数を表示
                 log.info("データ読み込み" + i + "件目");
