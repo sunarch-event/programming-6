@@ -56,10 +56,6 @@ public class PerformanceService {
 
     // CSV取得用リスト
     private List<String> csvFile = new ArrayList<String>();
-    //エンティティ
-    private UserInfo userInfo = new UserInfo();
-    private UserHobby userHobby = new UserHobby();
-    private UserMaster userMaster = new UserMaster();
     
     private Map<String, Long> resultMap = new HashMap<String, Long>();
     private Map<String, Boolean> assertionResultMap = new HashMap<String, Boolean>();
@@ -148,6 +144,9 @@ public class PerformanceService {
                 log.debug(HOBBY_4 + data[8]);
                 log.debug(HOBBY_5 + data[9]);
                 
+                UserInfo userInfo = new UserInfo();
+                UserHobby userHobby = new UserHobby();
+
                 userInfo.setLastName(data[0]);
                 userInfo.setFirstName(data[1]);
                 userInfo.setPrefectures(data[2]);
@@ -200,6 +199,7 @@ public class PerformanceService {
         List<UserMaster> userMasterList = new ArrayList<UserMaster>();
         
         for(int i = 0,iLen = userInfoList.size(); i < iLen; i++) {
+            UserMaster userMaster = new UserMaster();
             userMaster.setId(userInfoList.get(i).getId());
             userMaster.setLastName(userInfoList.get(i).getLastName());
             userMaster.setFirstName(userInfoList.get(i).getFirstName());
@@ -321,6 +321,7 @@ public class PerformanceService {
             boolean exsits = false;
             String[] data = line.split(COMMA, -1);
 
+            UserMaster userMaster = new UserMaster();
             userMaster.setLastName(data[0]);
             userMaster.setFirstName(data[1]);
             userMaster.setPrefectures(data[2]);
