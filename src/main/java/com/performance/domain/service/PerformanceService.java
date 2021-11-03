@@ -53,6 +53,9 @@ public class PerformanceService {
     private GoogleApiService googleService;
 
     private UserDao userDao;
+
+    // CSV取得用リスト
+    List<String> csvFile = new ArrayList<String>();
     
     private Map<String, Long> resultMap = new HashMap<String, Long>();
     private Map<String, Boolean> assertionResultMap = new HashMap<String, Boolean>();
@@ -99,7 +102,6 @@ public class PerformanceService {
         /** 変更不可 **/
         
         // CSVを取得・CSVファイルをDBに登録する
-        List<String> csvFile = new ArrayList<String>();
         try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(CSV_USERINFO), StandardCharsets.UTF_8));){
 
             //読み込み行
@@ -168,6 +170,8 @@ public class PerformanceService {
                     userDao.insertUserHobby(userHobby);
                 }
             }
+            //CSV取得用リストのクリア
+            csvFile.clear();
 
         } catch (Exception e) {
             log.info(CSV_READ_ERROR, e);
@@ -304,7 +308,7 @@ public class PerformanceService {
         }
         
         // CSVを取得・CSVファイルをDBに登録する
-        List<String> csvFile = new ArrayList<String>();
+        //List<String> csvFile = new ArrayList<String>();
         try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(CSV_ASSERTIONDATA), StandardCharsets.UTF_8));){
             //読み込み行
             String readLine;
@@ -340,6 +344,8 @@ public class PerformanceService {
                 assertionResult = false;
             }
         }
+        //CSV取得用リストのクリア
+        csvFile.clear();
         truncateTable();
         return assertionResult;
     }
