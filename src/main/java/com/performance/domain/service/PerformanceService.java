@@ -135,8 +135,7 @@ public class PerformanceService {
                 userHobby.setHobby4(data[8]);
                 userHobby.setHobby5(data[9]);
                 // 特定の件のみインサートするようにする
-                Pattern pattern = Pattern.compile(".新潟県,上越市.");
-                Matcher matcher = pattern.matcher(line);
+                Matcher matcher = Pattern.compile(".新潟県,上越市.").matcher(line);
                 if(matcher.find()) {
                     // 行数のインクリメント
                     i++;
