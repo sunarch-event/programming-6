@@ -28,17 +28,4 @@ public class UserMaster {
                  .toString();
     }
 
-    public void clear() {
-        this.id = 0L;
-        this.lastName = "";
-        this.firstName = "";
-        this.prefectures = "";
-        this.city = "";
-        this.bloodType = "";
-        this.hobby1 = "";
-        this.hobby2 = "";
-        this.hobby3 = "";
-        this.hobby4 = "";
-        this.hobby5 = "";
-    }
 }

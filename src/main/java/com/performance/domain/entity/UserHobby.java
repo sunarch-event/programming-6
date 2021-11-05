@@ -21,12 +21,4 @@ public class UserHobby {
                  .toString();
     }
 
-    public void clear() {
-        this.id = 0L;
-        this.hobby1 = "";
-        this.hobby2 = "";
-        this.hobby3 = "";
-        this.hobby4 = "";
-        this.hobby5 = "";
-    }
 }

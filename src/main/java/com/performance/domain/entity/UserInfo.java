@@ -21,12 +21,4 @@ public class UserInfo {
                  .toString();
     }
 
-    public void clear() {
-        this.id = 0L;
-        this.lastName = "";
-        this.firstName = "";
-        this.prefectures = "";
-        this.city = "";
-        this.bloodType = "";
-    }
 }
