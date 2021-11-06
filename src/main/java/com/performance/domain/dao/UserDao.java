@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.performance.domain.entity.UserHobby;
 import com.performance.domain.entity.UserInfo;
+import com.performance.domain.entity.UserMaster;
 
 @Repository
 public class UserDao {
