@@ -45,6 +45,10 @@ public class GoogleApiService {
     
     RestTemplate restTemplate;
     ObjectMapper mapper;
+
+    // URLパーツ
+    private final String VALUE = "/values/";
+    private final String USER_ENTERED = ":append?valueInputOption=USER_ENTERED";
     
     public GoogleApiService(RestTemplateBuilder restTemplateBuilder, ObjectMapper mapper) {
         this.restTemplate = restTemplateBuilder.build();
@@ -109,7 +113,8 @@ public class GoogleApiService {
         List<Long[]> updateValues = new ArrayList<Long[]>();
         updateValues.add(updateValue);
         valueMap.put("values", updateValues);
-        String postUrl = API_URL + SHEET_ID + "/values/" + targetColumn.getColumnId() + targetRowCount +":append?valueInputOption=USER_ENTERED";
+        String postUrl = new StringBuilder().append(API_URL).append(SHEET_ID).append(VALUE).append(targetColumn.getColumnId()).append(targetRowCount).append(USER_ENTERED).toString();
+        //String postUrl = API_URL + SHEET_ID + "/values/" + targetColumn.getColumnId() + targetRowCount +":append?valueInputOption=USER_ENTERED";
         RequestEntity<Map<String, List<Long[]>>> request = RequestEntity.post(new URI(postUrl))
                 .header("Authorization", googleOauth.getTokenType() + " " + googleOauth.getAccessToken())
                 .contentType(MediaType.APPLICATION_JSON)
