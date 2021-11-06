@@ -28,27 +28,12 @@ public class PerformanceService {
 
     private final String MEASURE_FLAG_ON  = "1";
     
-    private final String SPREADSHEET_EROOR = "スプレッドシートの更新でエラーが発生しました。";
-    private final String LOG_BOUNDARY = "-------------------------------";
-    private final String DATA_READ = "データ読み込み";
-    private final String ITEM = "件目";
-    private final String CSV_READ_ERROR = "csv read error";
-    private final String COMMA = ",";
-    private final String LAST_NAME = "ユーザー姓:";
-    private final String PREFECTURES = "出身都道府県:";
-    private final String FIRST_NAME = "ユーザー名:";
-    private final String CITY = "出身市区町村:";
-    private final String BLOODTYPE = "血液型:";
-    private final String HOBBY_1 = "趣味1:";
-    private final String HOBBY_2 = "趣味2:";
-    private final String HOBBY_3 = "趣味3:";
-    private final String HOBBY_4 = "趣味4:";
-    private final String HOBBY_5 = "趣味5:";
-    private final String TARGET_ITEMS = ".新潟県,上越市.";
-    private final String DATA_WRITING = "データ書き込み";
-
-    private final String CSV_USERINFO = "data/userInfo.csv";
-    private final String CSV_ASSERTIONDATA = "data/assertionData.csv";
+    // メソッドを跨いで使用する定数
+    private static final String SPREADSHEET_EROOR = "スプレッドシートの更新でエラーが発生しました。";
+    private static final String CSV_READ_ERROR = "csv read error";
+    private static final String COMMA = ",";
+    private static final String CSV_USERINFO = "data/userInfo.csv";
+    private static final String CSV_ASSERTIONDATA = "data/assertionData.csv";
 
     private GoogleApiService googleService;
 
@@ -99,6 +84,27 @@ public class PerformanceService {
         truncateTable();
         /** 変更不可 **/
         
+        //メソッド内で使用する定数
+        private static final String LOG_BOUNDARY = "-------------------------------";
+        private static final String DATA_READ = "データ読み込み";
+        private static final String ITEM = "件目"; 
+        private static final String LAST_NAME = "ユーザー姓:";
+        private static final String PREFECTURES = "出身都道府県:";
+        private static final String FIRST_NAME = "ユーザー名:";
+        private static final String CITY = "出身市区町村:";
+        private static final String BLOODTYPE = "血液型:";
+        private static final String HOBBY_1 = "趣味1:";
+        private static final String HOBBY_2 = "趣味2:";
+        private static final String HOBBY_3 = "趣味3:";
+        private static final String HOBBY_4 = "趣味4:";
+        private static final String HOBBY_5 = "趣味5:";
+        private static final String TARGET_ITEMS = ".新潟県,上越市.";
+        private static final String DATA_WRITING = "データ書き込み";
+
+
+
+        
+
         // CSVを取得・CSVファイルをDBに登録する
         try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(CSV_USERINFO), StandardCharsets.UTF_8));){
 
