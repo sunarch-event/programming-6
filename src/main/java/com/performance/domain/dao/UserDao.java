@@ -105,11 +105,7 @@ public class UserDao {
 
     public UserMaster getTargetUserMaster() {
         String sql = new StringBuilder()
-           .append("SELECT user_info.id as id, user_info.last_name as last_name, 
-                    user_info.first_name as first_name, user_info.prefectures as prefectures, 
-                    user_info.city as city, user_info.blood_type as blood_type, user_hobby.hobby1 as hobby1, 
-                    user_hobby.hobby2 as hobby2, user_hobby.hobby3 as hobby3, user_hobby.hobby4 as hobby4, 
-                    user_hobby.hobby5 as hobby5 ")
+           .append("SELECT user_info.id as id, user_info.last_name as last_name, user_info.first_name as first_name, user_info.prefectures as prefectures, user_info.city as city, user_info.blood_type as blood_type, user_hobby.hobby1 as hobby1, user_hobby.hobby2 as hobby2, user_hobby.hobby3 as hobby3, user_hobby.hobby4 as hobby4, user_hobby.hobby5 as hobby5 ")
            .append("FROM user_info ")
            .append("INNER JOIN user_hobby ")
            .append("ON user_info.id = user_hobby.id ")
