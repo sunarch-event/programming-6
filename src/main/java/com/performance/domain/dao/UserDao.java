@@ -83,6 +83,16 @@ public class UserDao {
            .toString();
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<UserHobby>(UserHobby.class));
     }
+
+    public List<UserMaster> searchUserMaster() {
+        String sql = new StringBuilder()
+           .append("SELECT user_info.id as id, user_info.last_name as last_name, user_info.first_name as first_name, user_info.prefectures as prefectures, user_info.city as city, user_info.blood_type as blood_type, user_hobby.hobby1 as hobby1, user_hobby.hobby2 as hobby2, user_hobby.hobby3 as hobby3, user_hobby.hobby4 as hobby4, user_hobby.hobby5 as hobby5 ")
+           .append("FROM user_info, user_hobby ")
+           .append("WHERE user_info.id <> user_hobby.id ")
+           .append("AND user_info.last_name || user_info.first_name <> ").append("'試験太郎'")
+           .toString();
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<UserMaster>(UserMaster.class));
+    }
     
     public UserInfo getTargetUserInfo() {
         String sql = new StringBuilder()
@@ -106,10 +116,9 @@ public class UserDao {
     public UserMaster getTargetUserMaster() {
         String sql = new StringBuilder()
            .append("SELECT user_info.id as id, user_info.last_name as last_name, user_info.first_name as first_name, user_info.prefectures as prefectures, user_info.city as city, user_info.blood_type as blood_type, user_hobby.hobby1 as hobby1, user_hobby.hobby2 as hobby2, user_hobby.hobby3 as hobby3, user_hobby.hobby4 as hobby4, user_hobby.hobby5 as hobby5 ")
-           .append("FROM user_info ")
-           .append("INNER JOIN user_hobby ")
-           .append("ON user_info.id = user_hobby.id ")
-           .append("WHERE user_info.last_name = ").append("'試験'")
+           .append("FROM user_info, user_hobby ")
+           .append("WHERE user_info.id = user_hobby.id ")
+           .append("AND user_info.last_name = ").append("'試験'")
            .append("AND user_info.first_name = ").append("'太郎'")
            .toString();
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<UserMaster>(UserMaster.class));

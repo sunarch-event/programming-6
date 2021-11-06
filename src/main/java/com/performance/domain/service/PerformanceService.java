@@ -194,8 +194,11 @@ public class PerformanceService {
         targetUserMaster.setHobby5(targetUserHobby.getHobby5());
         */
 
-        UserMaster targetUserMaster = UserDao.getTargetUserMaster();
+        UserMaster targetUserMaster = userDao.getTargetUserMaster();
+
+        List<UserMaster> userMasterList = userDao.searchUserMaster();
         
+        /*
         // DBから検索する
         List<UserInfo> userInfoList = userDao.searchUserInfo();
         List<UserHobby> userHobbyList = userDao.searchUserHobby(targetUserHobby);
@@ -222,6 +225,7 @@ public class PerformanceService {
             }
             userMasterList.add(userMaster);
         }
+        */
         
         List<UserMaster> bloodMatchingUserList = new ArrayList<UserMaster>();
         // 同じ血液型ユーザー
