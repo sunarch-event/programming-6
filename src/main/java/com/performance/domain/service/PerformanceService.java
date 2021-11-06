@@ -176,7 +176,6 @@ public class PerformanceService {
             log.info(CSV_READ_ERROR, e);
         }
         // 対象情報取得
-        /*
         UserInfo targetUserInfo = userDao.getTargetUserInfo();
         UserHobby targetUserHobby = userDao.getTargetUserHobby(targetUserInfo);
         UserMaster targetUserMaster = new UserMaster();
@@ -192,13 +191,7 @@ public class PerformanceService {
         targetUserMaster.setHobby3(targetUserHobby.getHobby3());
         targetUserMaster.setHobby4(targetUserHobby.getHobby4());
         targetUserMaster.setHobby5(targetUserHobby.getHobby5());
-        */
 
-        UserMaster targetUserMaster = userDao.getTargetUserMaster();
-
-        List<UserMaster> userMasterList = userDao.searchUserMaster();
-        
-        /*
         // DBから検索する
         List<UserInfo> userInfoList = userDao.searchUserInfo();
         List<UserHobby> userHobbyList = userDao.searchUserHobby(targetUserHobby);
@@ -225,7 +218,6 @@ public class PerformanceService {
             }
             userMasterList.add(userMaster);
         }
-        */
         
         List<UserMaster> bloodMatchingUserList = new ArrayList<UserMaster>();
         // 同じ血液型ユーザー
