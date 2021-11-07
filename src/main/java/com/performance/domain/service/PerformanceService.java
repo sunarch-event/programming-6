@@ -145,6 +145,8 @@ public class PerformanceService {
                             .append(HOBBY_3).append(data[7]).append(COMMA)
                             .append(HOBBY_4).append(data[8]).append(COMMA)
                             .append(HOBBY_5).append(data[9]).toString());
+                
+                            sb.setLength(0);
 
                 UserInfo userInfo = new UserInfo();
                 UserHobby userHobby = new UserHobby();
