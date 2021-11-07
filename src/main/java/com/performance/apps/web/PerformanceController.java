@@ -2,8 +2,8 @@ package com.performance.apps.web;
 
 import java.util.UUID;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.task.TaskRejectedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +17,17 @@ import com.performance.domain.service.PerformanceService;
 @Controller
 public class PerformanceController {
 
-    final static Logger log = LogManager.getLogger(PerformanceController.class);
+    final static Logger log = LoggerFactory.getLogger(PerformanceController.class);
 
     PerformanceService service;
     GoogleApiService googleService;
+
+    private final String MSG_START = "非同期にて処理を実行しています。処理結果は結果参照ボタンから取得してください。";
+    private final String MSG_RUNNING = "非同期にて処理を実行中です。処理時間は結果参照ボタンから取得してください。";
+    private final String MSG_STILL_RUNNING = "まだ実行中みたいです。";
+    private final String LOG_RUNNING = "非同期処理実行中";
+    private final String RS_SUCCESS = "OK";
+    private final String RS_FAILURE = "NG";
 
     public PerformanceController(PerformanceService service, GoogleApiService googleService) {
         this.service = service;
@@ -39,10 +46,10 @@ public class PerformanceController {
         String message = null;
         try {
             service.execute(uuid, measureFlag);
-            message = "非同期にて処理を実行しています。処理結果は結果参照ボタンから取得してください。";
+            message = MSG_START;
         } catch (TaskRejectedException e) {
-            log.info("非同期処理実行中");
-            message = "非同期にて処理を実行中です。処理時間は結果参照ボタンから取得してください。";
+            log.info(LOG_RUNNING);
+            message = MSG_RUNNING;
             uuid = service.referenceUuid();
         }
 
@@ -60,14 +67,14 @@ public class PerformanceController {
 
         String message = null;
         if(executeTime == null) {
-            message = "まだ実行中みたいです。";
+            message = MSG_STILL_RUNNING;
         }
         String resultMessage = null;
         if(assertionResult != null) {
             if(assertionResult) {
-                resultMessage = "OK";
+                resultMessage = RS_SUCCESS;
             } else {
-                resultMessage = "NG";
+                resultMessage = RS_FAILURE;
             }
         }
         
