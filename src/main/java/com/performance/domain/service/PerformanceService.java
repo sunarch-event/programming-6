@@ -199,8 +199,8 @@ public class PerformanceService {
         
         List<UserMaster> userMasterList = new ArrayList<UserMaster>();
         
+        UserMaster userMaster = new UserMaster();
         for(int i = 0,iLen = userInfoList.size(); i < iLen; i++) {
-            UserMaster userMaster = new UserMaster();
             userMaster.setId(userInfoList.get(i).getId());
             userMaster.setLastName(userInfoList.get(i).getLastName());
             userMaster.setFirstName(userInfoList.get(i).getFirstName());
