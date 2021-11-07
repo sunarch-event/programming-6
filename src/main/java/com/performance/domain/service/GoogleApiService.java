@@ -47,9 +47,13 @@ public class GoogleApiService {
     ObjectMapper mapper;
 
     // URLパーツ
-    private final String VALUE = "/values/";
-    private final String USER_ENTERED = ":append?valueInputOption=USER_ENTERED";
-    
+    private static final String SPREADSHEET_1 = "/values/";
+    private static final String SPREADSHEET_2 = ":append?valueInputOption=USER_ENTERED";
+    private static final String TARGETROWCOUNT_1 = "/values/シート1!";
+    private static final String TARGETROWCOUNT_2 = "3:";
+    private static final String TARGETROWCOUNT_3 = "2000000";
+    private static final String TARGETCOLUMUN_1 = "/values/シート1!B1:I1";
+
     public GoogleApiService(RestTemplateBuilder restTemplateBuilder, ObjectMapper mapper) {
         this.restTemplate = restTemplateBuilder.build();
         this.mapper = mapper;
@@ -113,8 +117,7 @@ public class GoogleApiService {
         List<Long[]> updateValues = new ArrayList<Long[]>();
         updateValues.add(updateValue);
         valueMap.put("values", updateValues);
-        String postUrl = new StringBuilder().append(API_URL).append(SHEET_ID).append(VALUE).append(targetColumn.getColumnId()).append(targetRowCount).append(USER_ENTERED).toString();
-        //String postUrl = API_URL + SHEET_ID + "/values/" + targetColumn.getColumnId() + targetRowCount +":append?valueInputOption=USER_ENTERED";
+        String postUrl = new StringBuilder().append(API_URL).append(SHEET_ID).append(SPREADSHEET_1).append(targetColumn.getColumnId()).append(targetRowCount).append(SPREADSHEET_2).toString();
         RequestEntity<Map<String, List<Long[]>>> request = RequestEntity.post(new URI(postUrl))
                 .header("Authorization", googleOauth.getTokenType() + " " + googleOauth.getAccessToken())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -124,7 +127,7 @@ public class GoogleApiService {
 
     private String getTargetRowCount(GoogleOauthResponse googleOauth, Column targetColumn) throws URISyntaxException, JsonMappingException, JsonProcessingException {
 
-        String getUrl = API_URL + SHEET_ID + "/values/シート1!" + targetColumn.getColumnId() + "3:" + targetColumn.getColumnId() +"2000000";
+        String getUrl = new StringBuilder().append(API_URL).append(SHEET_ID).append(TARGETROWCOUNT_1).append(targetColumn.getColumnId()).append(TARGETROWCOUNT_2).append(targetColumn.getColumnId()).append(TARGETROWCOUNT_3).toStrig();
         GoogleSpreadSheetRowResponse response = null;
         RequestEntity<Void> request = RequestEntity.get(new URI(getUrl)).header("Authorization", googleOauth.getTokenType() + " " + googleOauth.getAccessToken()).build();
         ResponseEntity<GoogleSpreadSheetRowResponse> responseEntity = restTemplate.exchange(request, GoogleSpreadSheetRowResponse.class);
@@ -142,7 +145,7 @@ public class GoogleApiService {
 
     private Column getTargetColumun(GoogleOauthResponse googleOauth) throws URISyntaxException, JsonMappingException, JsonProcessingException {
 
-        String getUrl = API_URL + SHEET_ID + "/values/シート1!B1:I1";
+        String getUrl = new StringBuilder().append(API_URL).append(SHEET_ID).append(TARGETCOLUMUN_1).toString();
         GoogleSpreadSheetRowResponse response = null;
         RequestEntity<Void> request = RequestEntity.get(new URI(getUrl)).header("Authorization", googleOauth.getTokenType() + " " + googleOauth.getAccessToken()).build();
         ResponseEntity<GoogleSpreadSheetRowResponse> responseEntity = restTemplate.exchange(request, GoogleSpreadSheetRowResponse.class);
