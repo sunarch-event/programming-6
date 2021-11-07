@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +13,10 @@ import com.performance.domain.entity.UserInfo;
 @Repository
 public class UserDao {
 
+    private static final String SQL_FORWARD_CLOSE = "'";
+    private static final String SQL_CLOSED_BACKWARDS = "',";
+    private static final String SQL_CLOSED_PARENTHESES = "')";
+
     private JdbcTemplate jdbcTemplate;
     
     public UserDao(JdbcTemplate jdbcTemplate) {
@@ -22,76 +25,86 @@ public class UserDao {
 
     @Transactional
     public void insertUserInfo (UserInfo entity) {
-        String sql = "INSERT INTO user_info (last_name, first_name, prefectures, city, blood_type)";
-        sql = sql + " VALUES (";
-        sql = sql + "'" + entity.getLastName() + "', ";
-        sql = sql + "'" + entity.getFirstName() + "', ";
-        sql = sql + "'" + entity.getPrefectures() + "', ";
-        sql = sql + "'" + entity.getCity() + "', ";
-        sql = sql + "'" + entity.getBloodType() + "')";
+        String sql = new StringBuilder()
+           .append("INSERT INTO user_info (last_name, first_name, prefectures, city, blood_type)")
+           .append(" VALUES (")
+           .append(SQL_FORWARD_CLOSE).append(entity.getLastName()).append(SQL_CLOSED_BACKWARDS)
+           .append(SQL_FORWARD_CLOSE).append(entity.getFirstName()).append(SQL_CLOSED_BACKWARDS)
+           .append(SQL_FORWARD_CLOSE).append(entity.getPrefectures()).append(SQL_CLOSED_BACKWARDS)
+           .append(SQL_FORWARD_CLOSE).append(entity.getCity()).append(SQL_CLOSED_BACKWARDS)
+           .append(SQL_FORWARD_CLOSE).append(entity.getBloodType()).append(SQL_CLOSED_PARENTHESES)
+           .toString();
         jdbcTemplate.execute(sql);
     }
     
     @Transactional
     public void insertUserHobby (UserHobby entity) {
-        String sql = "INSERT INTO user_hobby (id, hobby1, hobby2, hobby3, hobby4, hobby5)";
-        sql = sql + " VALUES (";
-        sql = sql + "'" + entity.getId() + "', ";
-        sql = sql + "'" + entity.getHobby1() + "', ";
-        sql = sql + "'" + entity.getHobby2() + "', ";
-        sql = sql + "'" + entity.getHobby3() + "', ";
-        sql = sql + "'" + entity.getHobby4() + "', ";
-        sql = sql + "'" + entity.getHobby5() + "')";
+        String sql = new StringBuilder()
+           .append("INSERT INTO user_hobby (id, hobby1, hobby2, hobby3, hobby4, hobby5)")
+           .append(" VALUES (")
+           .append(SQL_FORWARD_CLOSE).append(entity.getId()).append(SQL_CLOSED_BACKWARDS)
+           .append(SQL_FORWARD_CLOSE).append(entity.getHobby1()).append(SQL_CLOSED_BACKWARDS)
+           .append(SQL_FORWARD_CLOSE).append(entity.getHobby2()).append(SQL_CLOSED_BACKWARDS)
+           .append(SQL_FORWARD_CLOSE).append(entity.getHobby3()).append(SQL_CLOSED_BACKWARDS)
+           .append(SQL_FORWARD_CLOSE).append(entity.getHobby4()).append(SQL_CLOSED_BACKWARDS)
+           .append(SQL_FORWARD_CLOSE).append(entity.getHobby5()).append(SQL_CLOSED_PARENTHESES)
+           .toString();
         jdbcTemplate.execute(sql);
     }
     
     public Long selectId(UserInfo entity) {
-        String sql = "SELECT id ";
-        sql = sql + "FROM user_info ";
-        sql = sql + "WHERE last_name || first_name = " + "'" + entity.getLastName() + entity.getFirstName() + "'";
-        sql = sql + " ORDER BY id desc";
-        sql = sql + " LIMIT 1";
+        String sql = new StringBuilder()
+           .append("SELECT id ")
+           .append("FROM user_info ")
+           .append("WHERE last_name || first_name = ").append(SQL_FORWARD_CLOSE)
+           .append(entity.getLastName()).append(entity.getFirstName()).append(SQL_FORWARD_CLOSE)
+           .append(" ORDER BY id desc")
+           .append(" LIMIT 1")
+           .toString();
         return jdbcTemplate.queryForObject(sql, Long.class);
     }
 
     public List<UserInfo> searchUserInfo() {
-        String sql = "SELECT id, last_name, first_name, prefectures, city, blood_type ";
-        sql = sql + "FROM user_info ";
-        sql = sql + "WHERE last_name || first_name <> " + "'試験太郎'";
-        sql = sql + " ORDER BY id";
-        RowMapper<UserInfo> mapper = new BeanPropertyRowMapper<UserInfo>(UserInfo.class);
-        return jdbcTemplate.query(sql, mapper);
+        String sql = new StringBuilder()
+           .append("SELECT id, last_name, first_name, prefectures, city, blood_type ")
+           .append("FROM user_info ")
+           .append("WHERE last_name || first_name <> ").append("'試験太郎'")
+           .append(" ORDER BY id")
+           .toString();
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
     }
 
     public List<UserHobby> searchUserHobby(UserHobby targetUserHobby) {
-        String sql = "SELECT id, hobby1, hobby2, hobby3, hobby4, hobby5 ";
-        sql = sql + "FROM user_hobby ";
-        sql = sql + "WHERE id  <> " + targetUserHobby.getId();
-        sql = sql + " ORDER BY id";
-        RowMapper<UserHobby> mapper = new BeanPropertyRowMapper<UserHobby>(UserHobby.class);
-        return jdbcTemplate.query(sql, mapper);
+        String sql = new StringBuilder()
+           .append("SELECT id, hobby1, hobby2, hobby3, hobby4, hobby5 ")
+           .append("FROM user_hobby ")
+           .append("WHERE id  <> ").append(targetUserHobby.getId())
+           .append(" ORDER BY id")
+           .toString();
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<UserHobby>(UserHobby.class));
     }
     
     public UserInfo getTargetUserInfo() {
-        String sql = "SELECT id, last_name, first_name, prefectures, city, blood_type ";
-        sql = sql + "FROM user_info ";
-        sql = sql + "WHERE last_name = " + "'試験'";
-        sql = sql + "AND first_name = " + "'太郎'";
-        RowMapper<UserInfo> mapper = new BeanPropertyRowMapper<UserInfo>(UserInfo.class);
-        return jdbcTemplate.queryForObject(sql, mapper);
+        String sql = new StringBuilder()
+           .append("SELECT id, last_name, first_name, prefectures, city, blood_type ")
+           .append("FROM user_info ")
+           .append("WHERE last_name = ").append("'試験'")
+           .append("AND first_name = ").append("'太郎'")
+           .toString();
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
     }
     
     public UserHobby getTargetUserHobby(UserInfo userInfo) {
-        String sql = "SELECT id, hobby1, hobby2, hobby3, hobby4, hobby5 ";
-        sql = sql + "FROM user_hobby ";
-        sql = sql + "WHERE id = " + userInfo.getId();
-        RowMapper<UserHobby> mapper = new BeanPropertyRowMapper<UserHobby>(UserHobby.class);
-        return jdbcTemplate.queryForObject(sql, mapper);
+        String sql = new StringBuilder()
+           .append("SELECT id, hobby1, hobby2, hobby3, hobby4, hobby5 ")
+           .append("FROM user_hobby ")
+           .append("WHERE id = ").append(userInfo.getId())
+           .toString();
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<UserHobby>(UserHobby.class));
     }
-    
+
     public int searchCount() {
         String sql = "SELECT COUNT(*) FROM user_info";
-        
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
