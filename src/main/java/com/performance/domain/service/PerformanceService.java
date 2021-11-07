@@ -126,6 +126,7 @@ public class PerformanceService {
 
         try {
             int i = 0;
+            StringBuilder sb = new StringBuilder();
             for(String line : csvFile) {
                 //カンマで分割した内容を配列に格納する
                 String[] data = line.split(COMMA, -1);
@@ -134,17 +135,17 @@ public class PerformanceService {
                 log.info(LOG_BOUNDARY);
                 //データ件数を表示
                 //配列の中身を順位表示する。列数(=列名を格納した配列の要素数)分繰り返す
-                log.debug(LAST_NAME + data[1]);
-                log.debug(PREFECTURES + data[2]);
-                log.debug(FIRST_NAME + data[0]);
-                log.debug(CITY + data[3]);
-                log.debug(BLOODTYPE + data[4]);
-                log.debug(HOBBY_1 + data[5]);
-                log.debug(HOBBY_2 + data[6]);
-                log.debug(HOBBY_3 + data[7]);
-                log.debug(HOBBY_4 + data[8]);
-                log.debug(HOBBY_5 + data[9]);
-                
+                log.debug(sb.append(LAST_NAME).append(data[1]).append(COMMA)
+                            .append(PREFECTURES).append(data[2]).append(COMMA)
+                            .append(FIRST_NAME).append(data[0]).append(COMMA)
+                            .append(CITY).append(data[3]).append(COMMA)
+                            .append(BLOODTYPE).append(data[4]).append(COMMA)
+                            .append(HOBBY_1)).append(data[5]).append(COMMA)
+                            .append(HOBBY_2).append(data[6]).append(COMMA)
+                            .append(HOBBY_3).append(data[7]).append(COMMA)
+                            .append(HOBBY_4).append(data[8]).append(COMMA)
+                            .append(HOBBY_5).append(data[9]).toString());
+
                 UserInfo userInfo = new UserInfo();
                 UserHobby userHobby = new UserHobby();
 
@@ -199,8 +200,8 @@ public class PerformanceService {
         
         List<UserMaster> userMasterList = new ArrayList<UserMaster>();
         
-        UserMaster userMaster = new UserMaster();
         for(int i = 0,iLen = userInfoList.size(); i < iLen; i++) {
+            UserMaster userMaster = new UserMaster();
             userMaster.setId(userInfoList.get(i).getId());
             userMaster.setLastName(userInfoList.get(i).getLastName());
             userMaster.setFirstName(userInfoList.get(i).getFirstName());
