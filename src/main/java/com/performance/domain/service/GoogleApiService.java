@@ -127,7 +127,7 @@ public class GoogleApiService {
 
     private String getTargetRowCount(GoogleOauthResponse googleOauth, Column targetColumn) throws URISyntaxException, JsonMappingException, JsonProcessingException {
 
-        String getUrl = new StringBuilder().append(API_URL).append(SHEET_ID).append(TARGETROWCOUNT_1).append(targetColumn.getColumnId()).append(TARGETROWCOUNT_2).append(targetColumn.getColumnId()).append(TARGETROWCOUNT_3).toStrig();
+        String getUrl = new StringBuilder().append(API_URL).append(SHEET_ID).append(TARGETROWCOUNT_1).append(targetColumn.getColumnId()).append(TARGETROWCOUNT_2).append(targetColumn.getColumnId()).append(TARGETROWCOUNT_3).toString();
         GoogleSpreadSheetRowResponse response = null;
         RequestEntity<Void> request = RequestEntity.get(new URI(getUrl)).header("Authorization", googleOauth.getTokenType() + " " + googleOauth.getAccessToken()).build();
         ResponseEntity<GoogleSpreadSheetRowResponse> responseEntity = restTemplate.exchange(request, GoogleSpreadSheetRowResponse.class);
