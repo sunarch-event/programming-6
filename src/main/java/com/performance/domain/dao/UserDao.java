@@ -13,9 +13,9 @@ import com.performance.domain.entity.UserInfo;
 @Repository
 public class UserDao {
 
-    private final String SQL_FORWARD_CLOSE = "'";
-    private final String SQL_CLOSED_BACKWARDS = "',";
-    private final String SQL_CLOSED_PARENTHESES = "')";
+    private static final String SQL_FORWARD_CLOSE = "'";
+    private static final String SQL_CLOSED_BACKWARDS = "',";
+    private static final String SQL_CLOSED_PARENTHESES = "')";
 
     private JdbcTemplate jdbcTemplate;
     
