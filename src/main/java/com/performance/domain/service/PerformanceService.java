@@ -140,7 +140,7 @@ public class PerformanceService {
                             .append(FIRST_NAME).append(data[0]).append(COMMA)
                             .append(CITY).append(data[3]).append(COMMA)
                             .append(BLOODTYPE).append(data[4]).append(COMMA)
-                            .append(HOBBY_1)).append(data[5]).append(COMMA)
+                            .append(HOBBY_1).append(data[5]).append(COMMA)
                             .append(HOBBY_2).append(data[6]).append(COMMA)
                             .append(HOBBY_3).append(data[7]).append(COMMA)
                             .append(HOBBY_4).append(data[8]).append(COMMA)
